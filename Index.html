@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Emoji Redirect</title>
+    <script>
+        async function redirectToRandomEmoji() {
+            // Fetch the OpenMoji emoji list
+            let response = await fetch('https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/data/openmoji.json');
+            let emojis = await response.json();
+
+            // Pick a random emoji
+            let randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+            // Construct the image URL
+            let emojiHex = randomEmoji.hexcode.toLowerCase(); // OpenMoji uses lowercase hex codes
+            let emojiURL = `https://openmoji.org/data/color/svg/${emojiHex}.svg`;
+
+            // Redirect the user
+            window.location.href = emojiURL;
+        }
+
+        // Run the function when the page loads
+        window.onload = redirectToRandomEmoji;
+    </script>
+</head>
+<body>
+    <p>Redirecting to a random emoji...</p>
+</body>
+</html>
